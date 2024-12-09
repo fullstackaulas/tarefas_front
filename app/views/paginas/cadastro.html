@@ -1,0 +1,43 @@
+<!-- Tela de Cadastro -->
+<div class="login-container">
+    <div class="login-card" style="margin-top: 50px">
+        <h2>Cadastro</h2>
+        <form action="#" method="POST">
+            <!-- Campo de Email -->
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <!-- Campo de Nome -->
+            <div class="input-group">
+                <label for="name">Nome</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <!-- Campo de Senha -->
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <!-- Campo de Confirmar Senha -->
+            <div class="input-group">
+                <label for="confirm-password">Confirmar Senha</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+
+            <!-- Ação do formulário -->
+            <div class="login-actions">
+                <button type="submit" class="login-btn">Cadastrar</button>
+            </div>
+        </form>
+
+        <!-- Link para voltar à tela de login -->
+        <div class="register-actions">
+            <a ui-sref="login">
+                <button class="back-btn">Voltar para Login</button>
+            </a>
+        </div>
+    </div>
+</div>

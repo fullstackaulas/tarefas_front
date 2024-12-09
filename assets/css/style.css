@@ -1,0 +1,271 @@
+/* Resetando as margens e preenchimentos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #f4f4f4; /* Fundo claro */
+}
+
+/* Cabeçalho fixo no topo */
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 250px;  /* Fica ao lado da sidebar */
+    right: 0;
+    z-index: 10;
+    width: calc(100% - 250px); /* O cabeçalho ocupa o restante da largura da tela */
+    margin-top: 0; /* Remove qualquer margem superior */
+}
+
+/* Estilo do título do cabeçalho */
+header h1 {
+    font-size: 24px;
+}
+
+/* Estilo do botão no cabeçalho */
+header button {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+header button:hover {
+    background-color: #d32f2f;
+}
+
+/* Menu lateral */
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0; /* Vai até o rodapé */
+    padding-top: 60px; /* Ajuste para começar logo abaixo do cabeçalho */
+    z-index: 5;
+    overflow-y: auto;
+    height: 100vh; /* Sidebar ocupa toda a altura da tela */
+}
+
+/* Título dentro da sidebar */
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+    font-size: 20px;
+}
+
+/* Estilo da lista de itens no menu lateral */
+.sidebar ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.sidebar ul li {
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: white;
+    font-size: 16px;
+}
+
+/* Efeito ao passar o mouse */
+.sidebar ul li:hover {
+    background-color: #555;
+}
+
+/* Estilo do item ativo */
+.sidebar ul li.active {
+    background-color: #444; /* Cor de fundo mais clara para o item ativo */
+}
+
+/* Conteúdo principal */
+.main-content {
+    margin-left: 250px; /* Alinha o conteúdo ao lado da sidebar */
+    margin-top: 60px;  /* Espaço para o cabeçalho fixo */
+    padding: 20px;
+    flex-grow: 1;
+    background-color: #f4f4f4;
+    min-height: 100vh;  /* Garante que o conteúdo ocupe toda a altura da tela */
+}
+
+/* Estilo do título principal no conteúdo */
+.main-content h1 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Estilo dos cards no conteúdo */
+.card {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #333;
+}
+
+.card p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Rodapé fixo no rodapé */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 250px; /* Alinha o rodapé com a sidebar */
+    right: 0;
+}
+
+/* Estilo dos itens do menu */
+.sidebar ul li.active {
+    background-color: #444; /* Cor de fundo mais clara para o item ativo */
+}
+
+.sidebar ul li:hover {
+    background-color: #555; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo do footer */
+footer p {
+    font-size: 14px;
+    color: white;
+}
+
+/* Reaproveitar as regras de login (caso o login esteja na mesma página ou usado futuramente) */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.login-card {
+    background-color: white;
+    padding: 40px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+}
+
+.login-card h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.input-group input:focus {
+    border-color: #333;
+    outline: none;
+    background-color: #fff;
+}
+
+.login-actions {
+    margin-top: 20px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    color: white;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #444;
+}
+
+/* Botão de Cadastro */
+.register-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    color: white;
+    background-color: #4CAF50; /* Cor verde para o botão de cadastro */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Espaço entre o botão "Entrar" e "Cadastre-se" */
+}
+
+.register-btn:hover {
+    background-color: #45a049; /* Cor de fundo um pouco mais escura ao passar o mouse */
+}
+
+
+/* Botão de Voltar para Login */
+.back-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    color: white;
+    background-color: #555; /* Cor para o botão de voltar */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Espaço entre o botão de cadastro e o botão de voltar */
+}
+
+.back-btn:hover {
+    background-color: #444; /* Cor de fundo um pouco mais escura ao passar o mouse */
+}

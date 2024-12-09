@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Profissional</title>
+    
+</head>
+<body>
+    <div ng-include="'app/views/partials/sidebar.html'"></div>
+
+    <!-- Menu lateral -->
+    <!-- Cabeçalho -->
+    <header ng-include="'app/views/partials/header.html'"></header>
+
+
+    <!-- Conteúdo principal -->
+    <div ui-view></div>
+
+        
+    <!-- Rodapé fixo no rodapé -->
+    <footer ng-include="'app/views/partials/footer.html'"></footer>
+
+
+</body>
+</html>
