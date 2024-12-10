@@ -21,7 +21,12 @@ angular.module('meuApp', ['ui.router'])
         url: '/cadastro',
         templateUrl: 'app/views/paginas/cadastro.html', // colocar depois
         controller: 'cadastroController' // mudar depois também
-    });
+    })
+    .state('logout', {
+        url: '/logout',
+        templateUrl: 'app/views/paginas/logout.html', // colocar depois
+        controller: 'logoutController' // mudar depois também
+    })
 
     $urlRouterProvider.otherwise('/');
     
