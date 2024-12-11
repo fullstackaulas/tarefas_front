@@ -4,9 +4,6 @@ angular.module('meuApp')
         $token = localStorage.getItem('token');
 
 
-// GET (url, cabeçalho)
-// POST (URL, DADOS, CABEÇALHO)
-
             $config = {
                 headers: {
                     'Authorization': 'Bearer ' + $token 

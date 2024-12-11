@@ -4,28 +4,33 @@ angular.module('meuApp', ['ui.router'])
     $stateProvider
     .state('comMenu', {
         abstract: true,
-        templateUrl: 'app/views/partials/comHeaderFooterEMenu.html', // colocar depois
-        controller: 'testeController' // mudar depois também
+        templateUrl: 'app/views/partials/comHeaderFooterEMenu.html', 
+        controller: 'testeController'
     })
     .state('comMenu.home', {
         url: '/',
-        templateUrl: 'app/views/paginas/home.html', // colocar depois
-        controller: 'homeController' // mudar depois também
+        templateUrl: 'app/views/paginas/home.html', 
+        controller: 'homeController'
+    })   
+    .state('comMenu.projetos', {
+        url: '/projetos',
+        templateUrl: 'app/views/paginas/projetos.html', 
+        controller: 'projetosController'
     })
     .state('login', {
         url: '/login',
-        templateUrl: 'app/views/paginas/login.html', // colocar depois
-        controller: 'loginController' // mudar depois também
+        templateUrl: 'app/views/paginas/login.html', 
+        controller: 'loginController'
     })
     .state('cadastro', {
         url: '/cadastro',
-        templateUrl: 'app/views/paginas/cadastro.html', // colocar depois
-        controller: 'cadastroController' // mudar depois também
+        templateUrl: 'app/views/paginas/cadastro.html', 
+        controller: 'cadastroController'
     })
     .state('logout', {
         url: '/logout',
-        templateUrl: 'app/views/paginas/logout.html', // colocar depois
-        controller: 'logoutController' // mudar depois também
+        templateUrl: 'app/views/paginas/logout.html', 
+        controller: 'logoutController'
     })
 
     $urlRouterProvider.otherwise('/');

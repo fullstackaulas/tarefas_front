@@ -1,0 +1,166 @@
+<div class="container">
+    <div class="main-content">
+        <h1>Gerenciamento de Projetos -- Acao: {{acao}}</h1>
+
+        <!-- Botão para novo projeto -->
+        <div class="card" ng-show="acao.pagina == 'listando'">
+            <button class="button" ng-click="novoProjetoAcao()">Novo Projeto</button>
+        </div>
+
+        <!-- Tabela de Projetos Cadastrados -->
+        <div class="card" ng-show="acao.pagina == 'listando'">
+            <h3>Projetos Cadastrados</h3>
+            <table class="project-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Data de Início</th>
+                        <th>Data de Conclusão</th>
+                        <th>Pontos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Projeto A</td>
+                        <td>Desenvolvimento de um novo sistema de gestão</td>
+                        <td>01/01/2024</td>
+                        <td>30/06/2024</td>
+                        <td>120</td>
+                    </tr>
+                    <tr>
+                        <td>Projeto B</td>
+                        <td>Implementação de uma plataforma de e-commerce</td>
+                        <td>15/02/2024</td>
+                        <td>15/08/2024</td>
+                        <td>150</td>
+                    </tr>
+                    <tr>
+                        <td>Projeto C</td>
+                        <td>Desenvolvimento de uma aplicação mobile</td>
+                        <td>10/03/2024</td>
+                        <td>10/09/2024</td>
+                        <td>100</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Formulário de novo cadastro de projeto -->
+        <div class="form-section card" ng-show="acao.pagina == 'cadastrando'">
+            <button type="button" class="cancel-button" ng-click="listandoProjetoAcao()">Cancelar</button>
+
+            <h3>Cadastrar Novo Projeto</h3>
+            <form>
+                <label for="nome">Nome do Projeto</label>
+                <input type="text" id="nome" name="nome" placeholder="Nome do Projeto" ng-model="novoProjeto.nome" required>
+
+                <label for="descricao">Descrição</label>
+                <textarea id="descricao" name="descricao" placeholder="Descrição do Projeto" ng-model="novoProjeto.descricao" rows="4" required></textarea>
+
+                <label for="data_inicio">Data de Início</label>
+                <input type="date" id="data_inicio" name="data_inicio" ng-model="novoProjeto.dataDeInicio" required>
+
+                <label for="data_conclusao">Data de Conclusão</label>
+                <input type="date" id="data_conclusao" name="data_conclusao" ng-model="novoProjeto.dataDeConclusao" required>
+
+                <label for="pontos">Pontos</label>
+                <input type="number" id="pontos" name="pontos" ng-model="novoProjeto.pontos" placeholder="Pontos do Projeto" required>
+
+                <!-- Campo de Prioridade -->
+                <label for="prioridade">Prioridade</label>
+                <select id="prioridade" name="prioridade" ng-model="novoProjeto.prioridade" required>
+                    <option value="urgente">Urgente</option>
+                    <option value="alta">Alta</option>
+                    <option value="normal">Normal</option>
+                    <option value="baixa">Baixa</option>
+                </select>
+
+                <button type="button" ng-click="cadastrarNovoProjeto()">Cadastrar Projeto</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    .card {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .card h3 {
+        margin-top: 0;
+    }
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .button:hover {
+        background-color: #45a049;
+    }
+    .project-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    .project-table th, .project-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    .project-table th {
+        background-color: #f2f2f2;
+    }
+    .form-section input, .form-section textarea, .form-section select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+    .form-section button {
+        background-color: #2196F3;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .form-section button:hover {
+        background-color: #0b7dda;
+    }
+
+    /* Estilo para o botão de cancelar alinhado à direita e com fundo vermelho */
+    .cancel-button {
+        background-color: red !important; /* Uso do !important para garantir que a cor vermelha seja aplicada */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        float: right; /* Alinha o botão à direita */
+        margin-bottom: 20px; /* Espaço abaixo do botão */
+    }
+    .cancel-button:hover {
+        background-color: darkred !important; /* Garantir que a cor hover também seja vermelha */
+    }
+</style>
