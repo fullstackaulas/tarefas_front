@@ -13,6 +13,30 @@ angular.module('meuApp')
             pagina: 'listando'
         };
 
+        $scope.projetos = [];
+
+
+        $scope.listar = function () {
+            $http.get('http://localhost:8000/api/projetos/listar', $config).then(function (response) {
+                if (response.status == 200) {
+                    $scope.projetos = tratarDados(response.data);
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        }
+
+        tratarDados = function (dados) {
+            for (x = 0; x < dados.length; x++) {
+                dados[x]['dataDeInicio'] = new Date(dados[x]['dataDeInicio']);
+                dados[x]['dataDeConclusao'] =  new Date(dados[x]['dataDeConclusao']);
+            }
+            return dados;
+        }
+
+
+        $scope.listar();
+
         $scope.novoProjeto = {
             nome: '',
             descricao: '',
@@ -32,6 +56,47 @@ angular.module('meuApp')
                 dataDeConclusao: '',
                 pontos: ''
             }
+
+        }
+
+        $scope.deletarModal = function (id) {
+            Swal.fire({
+                title: "Você tem certeza?",
+                text: "Deletar este dado é uma ação irreversível!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sim, cancele isso!",
+                cancelButtonText: "Não delete!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $scope.deletarDeVerdade(id);
+
+                }
+            });
+        }
+
+
+
+        $scope.deletarDeVerdade = function (id) {
+
+
+            $http.delete('http://localhost:8000/api/projetos/deletar/' + id, $config).then(function (response) {
+                if (response.status == 200) {
+                    Swal.fire({
+                        title: "Deletado!",
+                        text: "Seu projeto foi deletado",
+                        icon: "success"
+                    });
+
+                    $scope.listar();
+                }
+            }, function (error) {
+                console.log(error);
+            });
+
+
 
         }
 
@@ -62,6 +127,7 @@ angular.module('meuApp')
                         confirmButtonText: "Sim, cadastrar nova!",
                         cancelButtonText: "Não, eu acabei!"
                     }).then((result) => {
+                        $scope.listar();
                         console.log(result);
                         if (result.isDismissed) {
 
@@ -74,12 +140,12 @@ angular.module('meuApp')
 
 
             }, function (error) {
-               
+
                 Swal.fire({
                     title: "The Internet?",
                     text: "That thing is still around?",
                     icon: "question"
-                  });
+                });
 
 
             })
