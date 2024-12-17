@@ -269,3 +269,48 @@ footer p {
 .back-btn:hover {
     background-color: #444; /* Cor de fundo um pouco mais escura ao passar o mouse */
 }
+
+/* Estilos gerais para os ícones */
+span {
+    cursor: pointer; /* Faz o ícone ser interativo, indicando que pode ser clicado */
+    display: inline-block; /* Para o span comportar-se como um elemento de bloco */
+    font-size: 24px; /* Define o tamanho do ícone */
+    padding: 10px; /* Dá um espaço ao redor do ícone */
+    transition: transform 0.3s ease, color 0.3s ease; /* Efeito suave de transformação e mudança de cor */
+}
+
+/* Estilo para o ícone de Consultar */
+.icone-consultar i {
+    color: #007bff; /* Cor azul para o ícone de consulta */
+}
+
+/* Estilo para o ícone de Deletar */
+.icone-deletar i {
+    color: #dc3545; /* Cor vermelha para o ícone de deletar */
+}
+
+/* Efeito de hover para ambos os ícones */
+span:hover {
+    transform: scale(1.2); /* Aumenta ligeiramente o ícone ao passar o mouse */
+    color: #555; /* Muda a cor para cinza escuro no hover */
+}
+
+/* Adicionando um pequeno efeito no hover para os ícones */
+.icone-consultar:hover i {
+    color: #0056b3; /* Azul mais escuro para o ícone de consulta */
+}
+
+.icone-deletar:hover i {
+    color: #b02a2a; /* Vermelho mais escuro para o ícone de deletar */
+}
+
+.sidebar ul li a {
+    color: white; /* Cor dos links */
+    text-decoration: none; /* Remover sublinhado */
+    display: block; /* Faz o link ocupar toda a área do item de menu */
+    padding: 12px; /* Para que o link tenha o mesmo espaçamento que os itens */
+}
+
+.sidebar ul li a:hover {
+    background-color: #555; /* Cor de fundo ao passar o mouse no link */
+}

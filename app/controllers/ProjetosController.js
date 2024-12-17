@@ -29,9 +29,29 @@ angular.module('meuApp')
         tratarDados = function (dados) {
             for (x = 0; x < dados.length; x++) {
                 dados[x]['dataDeInicio'] = new Date(dados[x]['dataDeInicio']);
-                dados[x]['dataDeConclusao'] =  new Date(dados[x]['dataDeConclusao']);
+                dados[x]['dataDeConclusao'] = new Date(dados[x]['dataDeConclusao']);
             }
             return dados;
+        }
+
+        tratarDadosConsultar = function (dados) {
+            $scope.acao.pagina = 'editando';
+            dados['dataDeInicio'] = new Date(dados['dataDeInicio']);
+            dados['dataDeConclusao'] = new Date(dados['dataDeConclusao']);
+
+            return dados;
+        }
+
+        $scope.consultar = function (id) {
+            url = 'http://localhost:8000/api/projetos/consultar/' + id;
+            $http.get(url, $config).then(function (response) {
+                if (response.status = 200) {
+                    $scope.editarProjeto = tratarDadosConsultar(response.data);
+                }
+                console.log(response);
+            }, function (error) {
+                console.log(error);
+            })
         }
 
 
@@ -42,6 +62,17 @@ angular.module('meuApp')
             descricao: '',
             dataDeInicio: '',
             prioridade: 'normal',
+            dataDeConclusao: '',
+            tarefas: [],
+            pontos: ''
+        }
+
+        $scope.editarProjeto = {
+            id: '',
+            nome: '',
+            descricao: '',
+            dataDeInicio: '',
+            prioridade: '',
             dataDeConclusao: '',
             pontos: ''
         }
@@ -59,6 +90,10 @@ angular.module('meuApp')
 
         }
 
+        $scope.adicionarTarefa = function () {
+            $scope.novoProjeto.tarefas.push({ nome: '', id: Date.now() });
+        }
+
         $scope.deletarModal = function (id) {
             Swal.fire({
                 title: "Você tem certeza?",
@@ -67,11 +102,103 @@ angular.module('meuApp')
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Sim, cancele isso!",
-                cancelButtonText: "Não delete!"
+                confirmButtonText: "Sim, delete isso!",
+                cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.isConfirmed) {
                     $scope.deletarDeVerdade(id);
+
+                }
+            });
+        }
+
+        $scope.consultarTarefa = function (id, nome) {
+            Swal.fire({
+                input: "textarea",
+                inputLabel: `Editando tarefa #${id} - ${nome}`,
+                inputPlaceholder: nome,
+                showCancelButton: true
+            }).then(function (result) {
+                // Verifique se o usuário não clicou no botão Cancelar
+                if (result.isConfirmed && result.value) {
+                    const text = result.value;
+
+                    $scope.$apply(function () {
+                        console.log('Chegou');
+                        // Aqui você pode chamar a função para atualizar a tarefa
+                        $scope.atualizaTarefa(id, text);
+                    });
+                }
+            });
+        }
+
+        $scope.adicionarTarefaNaEdicao = function () {
+            Swal.fire({
+                input: "textarea",
+                inputLabel: `Adicionando tarefa`,
+                inputPlaceholder: '',
+                showCancelButton: true
+            }).then(function (result) {
+                if (result.isConfirmed && result.value) {
+                    const text = result.value;
+                    $scope.$apply(function () {
+
+                        post = {};
+                        post.nome = text;
+                        post.id_projeto = $scope.editarProjeto.id;
+
+
+                        $http.post('http://localhost:8000/api/tarefas/cadastrar', post, $config).then(function (response) {
+                        $scope.consultar($scope.editarProjeto.id);
+
+                        }, function (error) {
+                            console.log(error);
+                        })
+
+
+                        // Aqui você pode chamar a função para atualizar a tarefa
+                    });
+                }
+            });
+        }
+
+
+
+        $scope.atualizaTarefa = function (id, nome) {
+            post = {};
+            post.nome = nome;
+
+            url = 'http://localhost:8000/api/tarefas/editarParcial/' + id
+            $http.patch(url, post, $config).then(function (response) {
+                if (response.status == 200) {
+                    Swal.fire({
+                        title: "Editado!",
+                        text: "Sua tarefa foi editada",
+                        icon: "success"
+                    });
+                    $scope.consultar($scope.editarProjeto.id);
+
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        }
+
+
+
+        $scope.deletarTarefaModal = function (id) {
+            Swal.fire({
+                title: "Você tem certeza?",
+                text: "Deletar esta tarefa é uma ação irreversível!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sim, delete!",
+                cancelButtonText: "Cancelar!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $scope.deletarTarefaDeVerdade(id);
 
                 }
             });
@@ -101,6 +228,29 @@ angular.module('meuApp')
         }
 
 
+        $scope.deletarTarefaDeVerdade = function (id) {
+
+
+            $http.delete('http://localhost:8000/api/tarefas/deletar/' + id, $config).then(function (response) {
+                if (response.status == 200) {
+                    Swal.fire({
+                        title: "Deletado!",
+                        text: "Sua tarefa foi deletada",
+                        icon: "success"
+                    });
+
+
+                    $scope.consultar($scope.editarProjeto.id);
+                }
+            }, function (error) {
+                console.log(error);
+            });
+
+
+
+        }
+
+
         $scope.novoProjetoAcao = function () {
             $scope.acao.pagina = 'cadastrando';
         }
@@ -109,13 +259,59 @@ angular.module('meuApp')
             $scope.acao.pagina = 'listando';
         }
 
+        $scope.salvarEdicaoProjeto = function () {
+
+            url = 'http://localhost:8000/api/projetos/editarParcial/' + $scope.editarProjeto.id
+            $http.patch(url, $scope.editarProjeto, $config).then(function (response) {
+                if (response.status == 200) {
+                    Swal.fire({
+                        title: "Editado!",
+                        text: "Seu projeto foi editado",
+                        icon: "success"
+                    });
+                    $scope.listar();
+                    $scope.acao.pagina = 'listando';
+                }
+            }, function (error) {
+                console.log(error);
+            })
+        }
+
+
         $scope.cadastrarNovoProjeto = function () {
             console.log($scope.novoProjeto);
+
+
+
 
             $http.post('http://localhost:8000/api/projetos/cadastrar', $scope.novoProjeto, $config).then(function (response) {
                 console.log(response);
 
                 if (response.status == 201) {
+
+
+                    for ($i = 0; $i < $scope.novoProjeto.tarefas.length; $i++) {
+
+                        // $tarefa->id_projeto = $request->id_projeto;
+                        // $tarefa->nome = $request->nome;
+                        post = {};
+                        post.nome = $scope.novoProjeto.tarefas[$i].nome;
+                        post.id_projeto = response.data.id;
+
+
+                        $http.post('http://localhost:8000/api/tarefas/cadastrar', post, $config).then(function (response) {
+                            console.log(response);
+                        }, function (error) {
+                            console.log(error);
+                        })
+
+
+
+
+                    }
+
+
+
                     $scope.limpar();
                     Swal.fire({
                         title: "Proposta cadastrada!",
@@ -128,10 +324,11 @@ angular.module('meuApp')
                         cancelButtonText: "Não, eu acabei!"
                     }).then((result) => {
                         $scope.listar();
-                        console.log(result);
                         if (result.isDismissed) {
 
-                            $scope.acao.pagina = 'listando';
+                            $scope.$apply(function () {
+                                $scope.listandoProjetoAcao();
+                            });
 
 
                         }
