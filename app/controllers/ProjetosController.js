@@ -1,5 +1,5 @@
 angular.module('meuApp')
-    .controller('projetosController', function ($scope, $http) {
+    .controller('projetosController', function ($scope, $http, $state) {
 
         $token = localStorage.getItem('token');
         $config = {
@@ -8,6 +8,11 @@ angular.module('meuApp')
             }
         }
 
+        deslogar = function(){
+            localStorage.removeItem('token');
+            $state.go('login');
+        }
+        
 
         $scope.acao = {
             pagina: 'listando'
@@ -22,6 +27,9 @@ angular.module('meuApp')
                     $scope.projetos = tratarDados(response.data);
                 }
             }, function (error) {
+                if(error.status == 401){
+                    deslogar();
+                }
                 console.log(error);
             });
         }

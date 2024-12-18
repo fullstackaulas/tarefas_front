@@ -1,0 +1,204 @@
+<div class="container">
+    <div class="main-content">
+        <h1>Gerenciamento de Usuários -- Acao: {{acao}}</h1>
+
+        <!-- Botão para novo projeto -->
+        <div class="card" ng-show="acao.pagina == 'listando'">
+            <button class="button" ng-click="novoUsuarioAcao()">Novo Usuário</button>
+        </div>
+
+        <!-- Tabela de Projetos Cadastrados -->
+        <div class="card" ng-show="acao.pagina == 'listando'">
+            <h3>Usuarios Cadastrados</h3>
+            <table class="project-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="item in projetos">
+                    <tr>
+                        <td>{{item.name}}</td>
+                        <td>{{item.email}}</td>
+                        <td>
+                            <span class="icone-consultar" ng-click="$parent.consultar(item.id)">
+                                <i class="fas fa-search"></i>
+                            </span>
+
+                            <!-- Ícone Deletar -->
+                            <span class="icone-deletar" ng-click="$parent.deletarModal(item.id)">
+                                <i class="fas fa-trash-alt"></i>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Formulário de novo cadastro de projeto -->
+        <div class="form-section card" ng-show="acao.pagina == 'cadastrando'">
+            <button type="button" class="cancel-button" ng-click="listandoUsuarioAcao()">Cancelar</button>
+
+            <h3>Cadastrar Novo Usuario</h3>
+            <form>
+                <label for="name">Nome</label>
+                <input type="text" id="name" name="name" placeholder="Nome" ng-model="novoUsuario.name" required>
+
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="Email" ng-model="novoUsuario.email" required>
+
+                <label for="password">Senha</label>
+                <input type="text" id="password" name="password" placeholder="password" ng-model="novoUsuario.password"
+                    required>
+
+                <br><br><br>
+                <button type="button" ng-click="cadastrarNovoUsuario()">Cadastrar Projeto</button>
+            </form>
+        </div>
+
+
+        <div class="form-section card" ng-show="acao.pagina == 'editando'">
+            <button type="button" class="cancel-button" ng-click="listandoProjetoAcao()">Cancelar</button>
+
+            <h3>Editando o Usuario #{{editarUsuario.id}}</h3>
+            <form>
+                <label for="name">Nome</label>
+                <input type="text" id="name" name="name" placeholder="Nome" ng-model="editarUsuario.name"
+                    required>
+
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" placeholder="Email" ng-model="editarUsuario.email"
+                        required>
+
+                        <label for="password">Senha</label>
+                        <input type="text" id="password" name="password" placeholder="Senha" ng-model="editarUsuario.password"
+                            required>
+
+               
+
+                <button type="button" ng-click="salvarEdicaoUsuario()">Editar Usuário</button>
+
+
+
+
+
+            </form>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+<style>
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    .card {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+        margin-top: 0;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+
+    .project-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .project-table th,
+    .project-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .project-table th {
+        background-color: #f2f2f2;
+    }
+
+    .form-section input,
+    .form-section textarea,
+    .form-section select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .form-section button {
+        background-color: #2196F3;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .form-section button:hover {
+        background-color: #0b7dda;
+    }
+
+    /* Estilo para o botão de cancelar alinhado à direita e com fundo vermelho */
+    .cancel-button {
+        background-color: red !important;
+        /* Uso do !important para garantir que a cor vermelha seja aplicada */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        float: right;
+        /* Alinha o botão à direita */
+        margin-bottom: 20px;
+        /* Espaço abaixo do botão */
+    }
+
+    .cancel-button:hover {
+        background-color: darkred !important;
+        /* Garantir que a cor hover também seja vermelha */
+    }
+</style>
