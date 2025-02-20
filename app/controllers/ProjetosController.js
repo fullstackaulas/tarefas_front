@@ -37,7 +37,9 @@ angular.module('meuApp')
         tratarDados = function (dados) {
             for (x = 0; x < dados.length; x++) {
                 dados[x]['dataDeInicio'] = new Date(dados[x]['dataDeInicio']);
+                dados[x]["dataDeInicio"].setHours(dados[x]["dataDeInicio"].getHours() + 3);
                 dados[x]['dataDeConclusao'] = new Date(dados[x]['dataDeConclusao']);
+                dados[x]["dataDeConclusao"].setHours(dados[x]["dataDeConclusao"].getHours() + 3);
             }
             return dados;
         }
