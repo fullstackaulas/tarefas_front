@@ -1,10 +1,6 @@
 angular.module('meuApp')
     .controller('loginController', function ($scope, $http, $state) {
 
-
-
-
-
         $scope.usuario = {
             email: '',
             password: ''
