@@ -136,6 +136,31 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
+                            <th>Email</th>
+                            <th>Ações</th>
+
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="item in editarProjeto.colaboradores">
+                        <tr>
+                            <td>{{item.name}}</td>
+                            <td>{{item.email}}</td>
+                            <td>
+                                <!-- Ícone Deletar -->
+                                <span class="icone-deletar" ng-click="$parent.deletarColaboradorModal(item.id)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button type="button" ng-click="adicionarColaboradorNoProjeto()">Novo colaborador</button>
+
+                <table class="project-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
                             <th>Status</th>
                             <th>Prioridade</th>
                             <th>Criado em</th>

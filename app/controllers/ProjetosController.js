@@ -142,6 +142,41 @@ angular.module('meuApp')
             });
         }
 
+
+        
+
+        $scope.adicionarColaboradorNoProjeto = function () {
+            Swal.fire({
+                input: "textarea",
+                inputLabel: `Adicionar colaborador`,
+                inputPlaceholder: '',
+                showCancelButton: true
+            }).then(function (result) {
+                if (result.isConfirmed && result.value) {
+                    const text = result.value;
+                    $scope.$apply(function () {
+
+                        post = {};
+                        post.user_id = text;
+                        post.projeto_id = $scope.editarProjeto.id;
+
+
+                        $http.post('http://localhost:8000/api/projetoUsuario/cadastrar', post, $config).then(function (response) {
+                        // $scope.consultar($scope.editarProjeto.id);
+                        console.log(response);
+                        //fazer depois a atualizçao de informação
+
+                        }, function (error) {
+                            console.log(error);
+                        })
+
+
+                        // Aqui você pode chamar a função para atualizar a tarefa
+                    });
+                }
+            });
+        }
+
         $scope.adicionarTarefaNaEdicao = function () {
             Swal.fire({
                 input: "textarea",
@@ -194,7 +229,25 @@ angular.module('meuApp')
             });
         }
 
+        
 
+        $scope.deletarColaboradorModal = function (id) {
+            Swal.fire({
+                title: "Você tem certeza?",
+                text: "Deletar este colaborador é uma ação irreversível!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sim, delete!",
+                cancelButtonText: "Cancelar!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $scope.deletarColaboradorDeVerdade(id);
+
+                }
+            });
+        }
 
         $scope.deletarTarefaModal = function (id) {
             Swal.fire({
@@ -246,6 +299,29 @@ angular.module('meuApp')
                     Swal.fire({
                         title: "Deletado!",
                         text: "Sua tarefa foi deletada",
+                        icon: "success"
+                    });
+
+
+                    $scope.consultar($scope.editarProjeto.id);
+                }
+            }, function (error) {
+                console.log(error);
+            });
+
+
+
+        }
+
+
+        $scope.deletarColaboradorDeVerdade = function (id) {
+
+
+            $http.delete('http://localhost:8000/api/projetoUsuario/deletar/' + $scope.editarProjeto.id + '/' + id, $config).then(function (response) {
+                if (response.status == 200) {
+                    Swal.fire({
+                        title: "Deletado!",
+                        text: "Seu colaborador foi deletado",
                         icon: "success"
                     });
 
