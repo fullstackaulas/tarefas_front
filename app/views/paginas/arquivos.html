@@ -1,0 +1,125 @@
+<div class="container">
+    <div class="main-content">
+        <h1>Gerenciamento de Projetos -- Ação: {{acao}}</h1>
+
+        <div class="form-section card">
+            <button type="button" class="cancel-button" ng-click="listandoProjetoAcao()">Cancelar</button>
+
+            <h3>Cadastrar Novo Projeto</h3>
+            <form>
+                <label for="nome">Arquivo</label>
+                <!-- Removido o ng-change e ng-model -->
+                <input type="file" id="arquivo" name="arquivo" onchange="angular.element(this).scope().setArquivo(this)" required>
+
+                
+                <p>Arquivo selecionado: {{ informacoes.arquivo ? informacoes.arquivo.name : 'Nenhum arquivo selecionado' }}</p>
+
+                <button type="button" ng-click="cadastrarNovoArquivo()">Cadastrar Projeto</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    .card {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+        margin-top: 0;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+
+    .project-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .project-table th,
+    .project-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .project-table th {
+        background-color: #f2f2f2;
+    }
+
+    .form-section input,
+    .form-section textarea,
+    .form-section select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .form-section button {
+        background-color: #2196F3;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .form-section button:hover {
+        background-color: #0b7dda;
+    }
+
+    /* Estilo para o botão de cancelar alinhado à direita e com fundo vermelho */
+    .cancel-button {
+        background-color: red !important;
+        /* Uso do !important para garantir que a cor vermelha seja aplicada */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        float: right;
+        /* Alinha o botão à direita */
+        margin-bottom: 20px;
+        /* Espaço abaixo do botão */
+    }
+
+    .cancel-button:hover {
+        background-color: darkred !important;
+        /* Garantir que a cor hover também seja vermelha */
+    }
+</style>

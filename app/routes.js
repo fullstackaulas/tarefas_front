@@ -17,6 +17,11 @@ angular.module('meuApp', ['ui.router'])
         templateUrl: 'app/views/paginas/projetos.html', 
         controller: 'projetosController'
     })
+    .state('comMenu.arquivos', {
+        url: '/arquivos',
+        templateUrl: 'app/views/paginas/arquivos.html', 
+        controller: 'arquivosController'
+    })
     .state('comMenu.usuarios', {
         url: '/usuarios',
         templateUrl: 'app/views/paginas/usuarios.html', 
