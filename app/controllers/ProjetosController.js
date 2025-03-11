@@ -15,11 +15,11 @@ angular.module('meuApp')
             }
         }
 
-        deslogar = function(){
+        deslogar = function () {
             localStorage.removeItem('token');
             $state.go('login');
         }
-        
+
 
         $scope.acao = {
             pagina: 'listando'
@@ -34,7 +34,7 @@ angular.module('meuApp')
                     $scope.projetos = tratarDados(response.data);
                 }
             }, function (error) {
-                if(error.status == 401){
+                if (error.status == 401) {
                     deslogar();
                 }
                 console.log(error);
@@ -108,7 +108,7 @@ angular.module('meuApp')
 
         }
 
-        $scope.setArquivo = function(input) {
+        $scope.setArquivo = function (input) {
             var arquivo = input.files[0]; // Acessa o arquivo selecionado
             if (arquivo) {
                 $scope.informacoes.arquivo = arquivo; // Armazena o arquivo no modelo
@@ -159,7 +159,7 @@ angular.module('meuApp')
         }
 
 
-        
+
 
         $scope.adicionarColaboradorNoProjeto = function () {
             Swal.fire({
@@ -178,9 +178,9 @@ angular.module('meuApp')
 
 
                         $http.post('http://localhost:8000/api/projetoUsuario/cadastrar', post, $config).then(function (response) {
-                        // $scope.consultar($scope.editarProjeto.id);
-                        console.log(response);
-                        //fazer depois a atualizçao de informação
+                            // $scope.consultar($scope.editarProjeto.id);
+                            console.log(response);
+                            //fazer depois a atualizçao de informação
 
                         }, function (error) {
                             console.log(error);
@@ -210,7 +210,7 @@ angular.module('meuApp')
 
 
                         $http.post('http://localhost:8000/api/tarefas/cadastrar', post, $config).then(function (response) {
-                        $scope.consultar($scope.editarProjeto.id);
+                            $scope.consultar($scope.editarProjeto.id);
 
                         }, function (error) {
                             console.log(error);
@@ -245,7 +245,7 @@ angular.module('meuApp')
             });
         }
 
-        
+
 
         $scope.deletarColaboradorModal = function (id) {
             Swal.fire({
@@ -387,7 +387,7 @@ angular.module('meuApp')
 
             $http.post('http://localhost:8000/api/arquivos/salvar', formData, $configContentUndefined).then(function (response) {
                 console.log(response);
-                if(response.status == 201){
+                if (response.status == 201) {
                     $scope.novoUsuario.id_arquivo = response.data.id;
 
                     $http.post('http://localhost:8000/api/projetos/cadastrar', $scope.novoProjeto, $config).then(function (response) {
@@ -440,18 +440,19 @@ angular.module('meuApp')
                                 }
                             });
                         }
-                    
-
-                }, function (error) {
-
-                    Swal.fire({
-                        title: "The Internet?",
-                        text: "That thing is still around?",
-                        icon: "question"
-                    });
 
 
-                })
+                    }, function (error) {
+
+                        Swal.fire({
+                            title: "The Internet?",
+                            text: "That thing is still around?",
+                            icon: "question"
+                        });
+
+
+                    })
+                }
             }, function (error) {
                 console.log(error);
             })
