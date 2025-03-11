@@ -13,6 +13,7 @@
             <table class="project-table">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Ações</th>
@@ -20,6 +21,9 @@
                 </thead>
                 <tbody ng-repeat="item in projetos">
                     <tr>
+                        <td><img src="http://localhost/Fullstack_tarefas/tarefas_back/storage/app/{{item.img}}" ng-show='item.img != null' style="max-width: 50px;">
+                            <img src="assets/img/user.avif" style="max-width: 50px;" ng-show='item.img == null'>
+                        </td>
                         <td>{{item.name}}</td>
                         <td>{{item.email}}</td>
                         <td>
@@ -54,6 +58,17 @@
                     required>
 
                 <br><br><br>
+
+                <input type="file" id="arquivo" name="arquivo" onchange="angular.element(this).scope().setArquivo(this)" required>
+
+                
+                <p>Arquivo selecionado: {{ informacoes.arquivo ? informacoes.arquivo.name : 'Nenhum arquivo selecionado' }}</p>
+
+                <br><br><br>
+
+
+
+
                 <button type="button" ng-click="cadastrarNovoUsuario()">Cadastrar Usuário</button>
             </form>
         </div>
@@ -76,7 +91,14 @@
                         <input type="text" id="password" name="password" placeholder="Senha" ng-model="editarUsuario.password"
                             required>
 
-               
+                            <br><br><br>
+
+                            <input type="file" id="arquivo" name="arquivo" onchange="angular.element(this).scope().setArquivoEditar(this)" required>
+            
+                            
+                            <p>Arquivo selecionado: {{ informacoes.arquivoEditar ? informacoes.arquivoEditar.name : 'Nenhum arquivo selecionado' }}</p>
+            
+                            <br><br><br>
 
                 <button type="button" ng-click="salvarEdicaoUsuario()">Editar Usuário</button>
 

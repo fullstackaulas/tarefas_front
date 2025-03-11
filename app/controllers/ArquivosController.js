@@ -4,7 +4,8 @@ angular.module('meuApp')
         $token = localStorage.getItem('token');
         $config = {
             headers: {
-                'Authorization': 'Bearer ' + $token
+                'Authorization': 'Bearer ' + $token,
+                'Content-Type': undefined
             }
         }
 
@@ -21,7 +22,6 @@ angular.module('meuApp')
             var arquivo = input.files[0]; // Acessa o arquivo selecionado
             if (arquivo) {
                 $scope.informacoes.arquivo = arquivo; // Armazena o arquivo no modelo
-                console.log('Arquivo selecionado: ', arquivo);
                 $scope.$apply(); // Força o AngularJS a atualizar o modelo
             }
         };
@@ -32,7 +32,7 @@ angular.module('meuApp')
 
             var formData = new FormData();
             formData.append('arquivo', $scope.informacoes.arquivo);
-            console.log(formData);
+           
 
             $http.post('http://localhost:8000/api/arquivos/salvar', formData, $config).then(function(response){
                 console.log(response);
