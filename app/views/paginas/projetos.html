@@ -77,6 +77,9 @@
                     <option value="baixa">Baixa</option>
                 </select>
 
+                <input type="file" id="arquivo" name="arquivo" onchange="angular.element(this).scope().setArquivo(this)" required>
+                <p>Arquivo selecionado: {{ informacoes.arquivo ? informacoes.arquivo.name : 'Nenhum arquivo selecionado' }}</p>
+
                 <br><br>
 
                 <h1>Tarefas</h1>
