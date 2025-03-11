@@ -20,6 +20,10 @@ angular.module('meuApp')
             $state.go('login');
         }
 
+        $scope.informacoes = {
+            arquivo: '',
+            arquivoEditar: ''
+        };
 
         $scope.acao = {
             pagina: 'listando'
@@ -92,6 +96,7 @@ angular.module('meuApp')
             dataDeInicio: '',
             prioridade: '',
             dataDeConclusao: '',
+            id_arquivo: '',
             pontos: ''
         }
 
@@ -103,6 +108,7 @@ angular.module('meuApp')
                 dataDeInicio: '',
                 prioridade: 'normal',
                 dataDeConclusao: '',
+                id_arquivo: '',
                 pontos: ''
             }
 
@@ -388,7 +394,7 @@ angular.module('meuApp')
             $http.post('http://localhost:8000/api/arquivos/salvar', formData, $configContentUndefined).then(function (response) {
                 console.log(response);
                 if (response.status == 201) {
-                    $scope.novoUsuario.id_arquivo = response.data.id;
+                    $scope.novoProjeto.id_arquivo = response.data.id;
 
                     $http.post('http://localhost:8000/api/projetos/cadastrar', $scope.novoProjeto, $config).then(function (response) {
                         console.log(response);

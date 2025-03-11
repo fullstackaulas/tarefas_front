@@ -29,6 +29,7 @@ angular.module('meuApp')
         };
 
         $scope.setArquivo = function (input) {
+            console.log("chegou");
             var arquivo = input.files[0]; // Acessa o arquivo selecionado
             if (arquivo) {
                 $scope.informacoes.arquivo = arquivo; // Armazena o arquivo no modelo

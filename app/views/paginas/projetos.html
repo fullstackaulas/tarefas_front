@@ -23,6 +23,9 @@
                 </thead>
                 <tbody ng-repeat="item in projetos">
                     <tr>
+                        <td><img src="http://localhost/fullStackFev/tarefas_back/storage/app/{{item.img}}" ng-show='item.img != null' style="max-width: 50px;">
+                            <img src="assets/img/user.avif" style="max-width: 50px;" ng-show='item.img == null'>
+                        </td>
                         <td>{{item.nome}}</td>
                         <td>{{item.descricao.substr(0,50)}}</td>
                         <td>{{item.dataDeInicio | date:'dd/MM/yyyy'}}</td>
