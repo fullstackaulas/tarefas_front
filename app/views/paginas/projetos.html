@@ -13,6 +13,7 @@
             <table class="project-table">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Nome</th>
                         <th>Descrição</th>
                         <th>Data de Início</th>
@@ -23,7 +24,7 @@
                 </thead>
                 <tbody ng-repeat="item in projetos">
                     <tr>
-                        <td><img src="http://localhost/fullStackFev/tarefas_back/storage/app/{{item.img}}" ng-show='item.img != null' style="max-width: 50px;">
+                        <td><img src="http://localhost/Fullstack_tarefas/tarefas_back/storage/app/{{item.img}}" ng-show='item.img != null' style="max-width: 50px;">
                             <img src="assets/img/user.avif" style="max-width: 50px;" ng-show='item.img == null'>
                         </td>
                         <td>{{item.nome}}</td>
@@ -102,6 +103,7 @@
 
 
         <div class="form-section card" ng-show="acao.pagina == 'editando'">
+            <button type="button" ng-click="downloadDoArquivo()">Download do arquivo</button>
             <button type="button" class="cancel-button" ng-click="listandoProjetoAcao()">Cancelar</button>
 
             <h3>Editando o Projeto #{{editarProjeto.id}}</h3>

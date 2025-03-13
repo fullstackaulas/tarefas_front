@@ -312,6 +312,75 @@ angular.module('meuApp')
 
         }
 
+        $scope.downloadDoArquivo = function () {
+
+
+            
+            console.log($scope.editarProjeto);
+            id = $scope.editarProjeto.id_arquivo;
+            console.log(id);
+
+            $http.get('http://localhost:8000/api/arquivos/' + id + '/download', $config).then(function (response) {
+                console.log(response);
+
+                downloadFile(response.data);
+
+
+            },
+                function (error) {
+                    console.log(error);
+                })
+
+        }
+
+
+
+        function downloadFile(imgDocument) {
+            var ext = [imgDocument.nome, imgDocument.extensao];
+            // var ext = ["download", 'csv'];
+            //var ext = ['.PNG', '.pdf'];
+
+            var a = document.createElement("a");
+
+            var binary_string = atob(imgDocument.data);
+            var len = binary_string.length;
+            var bytes = new Uint8Array(len);
+            for (var i = 0; i < len; i++) {
+                bytes[i] = binary_string.charCodeAt(i);
+            }
+
+            var file = new Blob([bytes.buffer], { type: ext[1] });
+            var fileName = ext[0].toLowerCase() + "." + ext[1];
+
+            if (window.navigator.msSaveOrOpenBlob)
+                // IE10+
+                window.navigator.msSaveOrOpenBlob(file, fileName);
+            else {
+                // Others
+                var url = URL.createObjectURL(file);
+                a.href = url;
+                a.target = "_blank";
+                //if(ext[1].toLowerCase() == 'xlsx'){
+                a.download = fileName;
+                //}
+                document.body.appendChild(a);
+            }
+            a.click();
+
+            setTimeout(function () {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 200);
+            window.closeLoading();
+        }
+
+
+    
+
+
+
+
+
 
         $scope.deletarTarefaDeVerdade = function (id) {
 
