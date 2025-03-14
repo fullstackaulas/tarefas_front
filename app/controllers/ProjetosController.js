@@ -126,7 +126,8 @@ angular.module('meuApp')
             $scope.novoProjeto.tarefas.push({ nome: '', id: Date.now() });
         }
 
-        $scope.deletarModal = function (id) {
+        $scope.deletarModal = function (id, id_arquivo) {
+            
             Swal.fire({
                 title: "Você tem certeza?",
                 text: "Deletar este dado é uma ação irreversível!",
@@ -138,7 +139,7 @@ angular.module('meuApp')
                 cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $scope.deletarDeVerdade(id);
+                    $scope.deletarDeVerdade(id, id_arquivo);
 
                 }
             });
@@ -291,8 +292,14 @@ angular.module('meuApp')
 
 
 
-        $scope.deletarDeVerdade = function (id) {
-
+        $scope.deletarDeVerdade = function (id, id_arquivo) {
+            if(id_arquivo != null) {
+                $http.delete("http://localhost:8000/api/arquivos/" + id_arquivo, $config).then(function(response) {
+                    console.log(response);
+                }, function(error){
+                    console.log(error);
+                })
+            }
 
             $http.delete('http://localhost:8000/api/projetos/deletar/' + id, $config).then(function (response) {
                 if (response.status == 200) {
