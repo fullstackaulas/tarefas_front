@@ -132,7 +132,6 @@ angular.module('meuApp')
             }).then((result) => {
                 if (result.isConfirmed) {
                     $scope.deletarDeVerdade(id);
-
                 }
             });
         }
@@ -155,6 +154,16 @@ angular.module('meuApp')
                     $scope.listar();
                 }
             }, function (error) {
+                if (error.status == 401) {
+                    deslogar();
+                }
+                else if(error.status == 403){
+                    Swal.fire({
+                        title: "Falha",
+                        text: "Você não tem permissão para essa ação!",
+                        icon: "error"
+                    });
+                }
                 console.log(error);
             });
 
